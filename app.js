@@ -13,7 +13,22 @@ app.set('view engine', 'ejs');
 /********* ROUTING ********/
 //GET - /
 app.get('/', (req, res) => {
-  res.send('HomePage');
+  res.render('landing');
+});
+
+//GET - /campgrounds
+app.get('/campgrounds', (req, res) => {
+  let campgrounds = [
+    {
+      name: 'Campground 1',
+      image: 'https://farm9.staticflickr.com/8235/8432294727_73ccb892f7.jpg'
+    },
+    {
+      name: 'Campground 2',
+      image: 'https://farm4.staticflickr.com/3617/3389236883_ef334dc46c.jpg'
+    }
+  ];
+  res.render('campgrounds', { campgrounds: campgrounds });
 });
 
 // App listen
