@@ -26,6 +26,10 @@ app.get('/campgrounds', (req, res) => {
     {
       name: 'Campground 2',
       image: 'https://farm4.staticflickr.com/3617/3389236883_ef334dc46c.jpg'
+    },
+    {
+      name: 'Campground 3',
+      image: 'https://farm6.staticflickr.com/5786/20607281024_5c7b3635cc.jpg'
     }
   ];
   res.render('campgrounds', { campgrounds: campgrounds });
