@@ -1,1 +1,4 @@
 /* Custom CSS */
+img {
+  max-width: 100%;
+}

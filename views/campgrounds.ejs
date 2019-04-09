@@ -1,36 +1,30 @@
-<% include partials/header %>
+<% include partials/header %> <% include partials/navbar %>
 <div class="container">
-  <div class="columns">
-    <div class="column">
-      <div class="hero bg-dark">
-        <div class="hero-body">
-          <h1>
-            All Campgrounds
-          </h1>
-          <p>
-            Let's ejoy with beautiful campgrounds.
-          </p>
-          <p>
-            <a href="/campgrounds/new" class="btn btn-primary"
-              >Add new campground</a
-            >
-          </p>
-        </div>
+  <div class="row">
+    <div class="col">
+      <div class="jumbotron bg-light">
+        <h1 class="display-4">
+          All Campgrounds
+        </h1>
+        <p class="lead">
+          Let's ejoy with beautiful campgrounds.
+        </p>
+        <p>
+          <a href="/campgrounds/new" class="btn btn-primary"
+            >Add new campground</a
+          >
+        </p>
       </div>
     </div>
   </div>
 </div>
 <div class="container">
-  <div class="columns">
+  <div class="row">
     <% campgrounds.forEach(campground => { %>
-    <div class="column col-sm-12 col-md-6 col-lg-4">
+    <div class="col-sm-12 col-md-4 col-lg-3">
       <div class="card">
         <div class="card-image">
-          <img
-            src="<%= campground.image %>"
-            class="img-responsive"
-            alt="campground image"
-          />
+          <img src="<%= campground.image %>" alt="campground image" />
         </div>
 
         <div class="card-header">
