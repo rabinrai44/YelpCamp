@@ -2,9 +2,15 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 // port define
 const port = process.env.PORT || 3000;
+
+// connect mongoose
+mongoose.connect('mongodb://localhost:27017/YelpCampDB', {
+  useNewUrlParser: true
+});
 
 // Basic App setup
 app.use(express.static(__dirname + '/public'));
@@ -27,6 +33,15 @@ let campgrounds = [
   }
 ];
 
+// Campground Schema
+let campgroundSchema = new mongoose.Schema({
+  name: String,
+  image: String
+});
+
+// Compile Schema into the mongoose model
+let Campground = mongoose.model('Campground', campgroundSchema);
+
 /********* ROUTING ********/
 //GET - /
 app.get('/', (req, res) => {
@@ -35,7 +50,14 @@ app.get('/', (req, res) => {
 
 //GET - /campgrounds
 app.get('/campgrounds', (req, res) => {
-  res.render('campgrounds', { campgrounds: campgrounds });
+  // Get all campgrounds from DB
+  Campground.find({}, (err, allCampgrounds) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('campgrounds', { campgrounds: allCampgrounds });
+    }
+  });
 });
 
 //POST - /campgrounds
@@ -46,10 +68,14 @@ app.post('/campgrounds', (req, res) => {
   let newCampground = { name: name, image: image };
 
   // save Campground to the campgrounds
-  campgrounds.push(newCampground);
-
-  // redirect to the campgrounds route
-  res.redirect('/campgrounds');
+  Campground.create(newCampground, (err, newlyCreated) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // redirect to campground page
+      res.redirect('/campgrounds');
+    }
+  });
 });
 
 //GET - campgrounds/new
